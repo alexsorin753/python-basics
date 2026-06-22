@@ -16,12 +16,31 @@ fancy_frame = Frame("─", "│", "─", "│", "╭", "╮", "╰", "╯")
 invisible_frame = Frame(" ", " ", " ", " ", " ", " ", " ", " ")
 
 def frame_text(text: str, frame: Frame) -> str:
-    space = " " * 2
     new_line = '\n'
-    text_len = len(text) + 4
-    top_bottom_len = frame.top * text_len
+    
+    def find_length():
+        spl = text.splitlines()
+        biggest_line = 0
+        if len(spl) > 1:
+            for line in spl:
+                if len(line) > biggest_line:
+                    biggest_line = len(line)
+            return frame.top * biggest_line
+        else: 
+            return frame.top * len(text)
+                
+    top_bottom_len = find_length()
 
-    return f"{frame.top_left}{top_bottom_len}{frame.top_right}{new_line}{frame.left}{space}{text}{space}{frame.right}{new_line}{frame.bottom_left}{top_bottom_len}{frame.bottom_right}"
+
+    strings = f"{frame.top_left}{top_bottom_len}{frame.top_right}{new_line}{frame.left}{text}{frame.right}{new_line}{frame.bottom_left}{top_bottom_len}{frame.bottom_right}"
+    
+    height_len = strings.count("\n")
+
+    print(height_len)
+    print(len(text.splitlines()))
+
+
+    return strings
 
 text = f"It is {datetime.now():%H:%I:%S}."
 text = frame_text(text, invisible_frame)
