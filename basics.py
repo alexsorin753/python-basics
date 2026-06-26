@@ -1,38 +1,80 @@
-#Calculator
+#Calculator second try
 import sys
-import math
-
-str_eval = ""
-number_of_int = 0
-
 
 try:
-    if len(sys.argv) < 4: 
+    if len(sys.argv) != 4: 
         sys.exit(f"usage: {sys.argv[0]} a_number (an_operator +-*/%^) a_number")
 
-
-    for arg in sys.argv[1:]:
-        if arg == "^":
-            arg = "**"
-        str_eval += arg
-
-    for char in str_eval:
-        if char not in "0123456789+-*/%^":
-            sys.exit("input error")
-
-        if char in "0123456789":
-            number_of_int += 1
-
-    if number_of_int == math.floor((len(str_eval) - 1) / 2) + 1:
-        print(eval(str_eval))
+    if sys.argv[2] == "+":
+        print(int(sys.argv[1]) + int(sys.argv[3]))
+    elif sys.argv[2] == "-":
+        print(int(sys.argv[1]) - int(sys.argv[3]))
+    elif sys.argv[2] == "*":
+        print(int(sys.argv[1]) * int(sys.argv[3]))
+    elif sys.argv[2] == "/":
+        print(int(sys.argv[1]) / int(sys.argv[3]))
+    elif sys.argv[2] == "%":
+        print(int(sys.argv[1]) % int(sys.argv[3]))
+    elif sys.argv[2] == "^":
+        print(int(sys.argv[1]) ** int(sys.argv[3]))
     else:
         sys.exit("input error")
-except ZeroDivisionError:
+
+except (ValueError, ZeroDivisionError):
     sys.exit("input error")
 
+#------------------------------------------------------------------------------------------------------------------------#
+
+#Lambda expressions
+
+# items = list(range(101))
+
+# def filtered(items, func):
+#     return list(filter(func, items))
+
+# three = filtered(items, lambda x: x % 3 == 0)
+# five = filtered(items, lambda x: x % 5 == 0)
+# fifteen = filtered(items, lambda x: x % 15 == 0)
+
+# print(str(three)[1:-1])
+# print(str(five)[1:-1])
+# print(str(fifteen)[1:-1])
+
+#------------------------------------------------------------------------------------------------------------------------#
+
+#Calculator
+# import sys
+# import math
+
+# str_eval = ""
+# number_of_int = 0
 
 
+# try:
+#     if len(sys.argv) < 4: 
+#         sys.exit(f"usage: {sys.argv[0]} a_number (an_operator +-*/%^) a_number")
 
+
+#     for arg in sys.argv[1:]:
+#         if arg == "^":
+#             arg = "**"
+#         str_eval += arg
+
+#     for char in str_eval:
+#         if char not in "0123456789+-*/%^":
+#             sys.exit("input error")
+
+#         if char in "0123456789":
+#             number_of_int += 1
+
+#     if number_of_int == math.floor((len(str_eval) - 1) / 2) + 1:
+#         print(eval(str_eval))
+#     else:
+#         sys.exit("input error")
+# except ZeroDivisionError:
+#     sys.exit("input error")
+
+#------------------------------------------------------------------------------------------------------------------------#
 
 #Text framing
 
