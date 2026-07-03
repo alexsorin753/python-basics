@@ -1,4 +1,27 @@
 #Password Generator
+import string
+import random
+
+def pwgen(length: int, with_digits = True, with_uppercase = True):
+    lowercase = list(string.ascii_lowercase)
+    uppercase = list(string.ascii_uppercase)
+    digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    special_characters = list(string.punctuation)
+
+    final_list = lowercase + special_characters
+    final_list = random.sample(final_list, length)
+
+    if with_digits:
+        final_list.pop()
+        final_list.insert(0, list(random.sample(digits, 1))[0])
+    if with_uppercase:
+        final_list.pop()
+        final_list.insert(0, list(random.sample(uppercase, 1))[0])
+
+    return "".join(random.sample(final_list, len(final_list)))
+
+print(pwgen(12, True, True))
+
 
 #Project Euler - Largest Product in a Grid
 # grid = [
