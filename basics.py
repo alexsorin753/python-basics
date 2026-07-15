@@ -7,14 +7,21 @@ def pwgen(length: int, with_digits = True, with_uppercase = True):
     uppercase = list(string.ascii_uppercase)
     digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-    final_list = random.sample(lowercase, length)
+    final_list = []
+
+    if length > 26:
+        extra_num = length - 26
+        final_list = random.sample(lowercase, 26)
+        final_list.extend(random.choices(lowercase, k = extra_num))
+    else:
+        final_list = random.sample(lowercase, length)
 
     if with_digits:
         final_list.pop()
-        final_list.insert(0, list(random.sample(digits, 1))[0])
+        final_list.insert(0, random.choice(digits))
     if with_uppercase:
         final_list.pop()
-        final_list.insert(0, list(random.sample(uppercase, 1))[0])
+        final_list.insert(0, random.choice(uppercase))
 
     return "".join(random.sample(final_list, len(final_list)))
 
