@@ -6,10 +6,8 @@ def pwgen(length: int, with_digits = True, with_uppercase = True):
     lowercase = list(string.ascii_lowercase)
     uppercase = list(string.ascii_uppercase)
     digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    special_characters = list(string.punctuation)
 
-    final_list = lowercase + special_characters
-    final_list = random.sample(final_list, length)
+    final_list = random.sample(lowercase, length)
 
     if with_digits:
         final_list.pop()
