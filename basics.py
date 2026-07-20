@@ -1,31 +1,88 @@
-#Password Generator
-import string
-import random
+#Side by side
+import textwrap
+from itertools import zip_longest
 
-def pwgen(length: int, with_digits = True, with_uppercase = True):
-    lowercase = list(string.ascii_lowercase)
-    uppercase = list(string.ascii_uppercase)
-    digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+left = (
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+"Sed non risus. "
+"Suspendisse lectus tortor, dignissim sit amet, "
+"adipiscing nec, utilisez sed sin dolor."
+)
 
-    final_list = []
+right = (
+"Morbi venenatis, felis nec pretium euismod, "
+"est mauris finibus risus, consectetur laoreet "
+"sem enim sed arcu. Maecenas sit amet eleifend sem. "
+"Nullam ac libero metus. Praesent ac finibus nulla, vitae molestie dolor."
+" Aliquam vestibulum viverra nisl, id porta mi viverra hendrerit."
+" Ut et porta augue, et convallis ante."
+)
 
-    if length > 26:
-        extra_num = length - 26
-        final_list = random.sample(lowercase, 26)
-        final_list.extend(random.choices(lowercase, k = extra_num))
+def sidebyside(left, right, width=79):
+    width_left = 0
+    width_right = 0
+
+    if width % 2 == 0:
+        width_left = int(width / 2)
+        width_right = int(width / 2 - 1)
     else:
-        final_list = random.sample(lowercase, length)
+        width_left = int(width // 2)
+        width_right = int(width // 2)
 
-    if with_digits:
-        final_list.pop()
-        final_list.insert(0, random.choice(digits))
-    if with_uppercase:
-        final_list.pop()
-        final_list.insert(0, random.choice(uppercase))
 
-    return "".join(random.sample(final_list, len(final_list)))
+    txt_left = textwrap.wrap(left, width = width_left)
+    txt_right = textwrap.wrap(right, width = width_right)
 
-print(pwgen(12, True, True))
+    for indx, el in enumerate(txt_right):
+        if len(el) < width_right:
+            txt_right[indx] = el + (" " * (width_right - len(el)))
+        txt_right[indx] = "|" + txt_right[indx]
+
+    for indx, el in enumerate(txt_left):
+        if len(el) < width_left:
+            txt_left[indx] = el + (" " * (width_left - len(el)))
+
+    zip_fill = " " * width_left
+
+    final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill))
+    final_str = ""
+
+    for indx, el in enumerate(final_list):
+        if indx == len(final_list) - 1:
+            final_str = final_str + "".join(el)
+        else:
+            final_str = final_str + "".join(el) + "\n"
+    return final_str
+    
+print(sidebyside(left, right, 50))
+#Password Generator
+# import string
+# import random
+
+# def pwgen(length: int, with_digits = True, with_uppercase = True):
+#     lowercase = list(string.ascii_lowercase)
+#     uppercase = list(string.ascii_uppercase)
+#     digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+#     final_list = []
+
+#     if length > 26:
+#         extra_num = length - 26
+#         final_list = random.sample(lowercase, 26)
+#         final_list.extend(random.choices(lowercase, k = extra_num))
+#     else:
+#         final_list = random.sample(lowercase, length)
+
+#     if with_digits:
+#         final_list.pop()
+#         final_list.insert(0, random.choice(digits))
+#     if with_uppercase:
+#         final_list.pop()
+#         final_list.insert(0, random.choice(uppercase))
+
+#     return "".join(random.sample(final_list, len(final_list)))
+
+# print(pwgen(12, True, True))
 
 
 #Project Euler - Largest Product in a Grid
