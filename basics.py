@@ -19,32 +19,31 @@ right = (
 )
 
 def sidebyside(left, right, width=79):
-    width_left = 0
-    width_right = 0
-
+    
     if width % 2 == 0:
-        width_left = int(width / 2)
-        width_right = int(width / 2 - 1)
+        width = (width - 1) // 2
     else:
-        width_left = int(width // 2)
-        width_right = int(width // 2)
+        width = width // 2
 
-
-    txt_left = textwrap.wrap(left, width = width_left)
-    txt_right = textwrap.wrap(right, width = width_right)
+    txt_left = textwrap.wrap(left, width = width)
+    txt_right = textwrap.wrap(right, width = width)
 
     for indx, el in enumerate(txt_right):
-        if len(el) < width_right:
-            txt_right[indx] = el + (" " * (width_right - len(el)))
+        if len(el) < width:
+            txt_right[indx] = el + (" " * (width - len(el)))
         txt_right[indx] = "|" + txt_right[indx]
 
     for indx, el in enumerate(txt_left):
-        if len(el) < width_left:
-            txt_left[indx] = el + (" " * (width_left - len(el)))
+        if len(el) < width:
+            txt_left[indx] = el + (" " * (width - len(el)))
 
-    zip_fill = " " * width_left
+    zip_fill_right = "|" + " " * (width - 1)
+    zip_fill_left = " " * width
 
-    final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill))
+    if len(txt_left) > len(txt_right):
+        final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill_right))
+    else:
+        final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill_left))
     final_str = ""
 
     for indx, el in enumerate(final_list):
@@ -54,7 +53,8 @@ def sidebyside(left, right, width=79):
             final_str = final_str + "".join(el) + "\n"
     return final_str
     
-print(sidebyside(left, right, 50))
+# print(sidebyside(left, right, 50))
+print(sidebyside('42', 'Hello world!', width=10))
 #Password Generator
 # import string
 # import random
