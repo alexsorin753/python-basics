@@ -1,60 +1,121 @@
+#Change for 42€
+
+def changes(amount, coins):
+    coins_list = []
+    starting_list = [1] * amount
+    list_of_all_possible_changes = [starting_list]
+
+    for coin in coins:
+        if coin <= amount and coin != 1: coins_list.append(coin)
+
+    coin2_list = starting_list.copy()
+    #maximum number of coins that can be used is half the length of the starting list
+    #find biggest coin 
+    for coin2 in range(int(len(starting_list) / 2)):
+        # for i in range(2):
+        #     coin2_list.pop()
+        # coin2_list.insert(0,2)
+
+        #5 index = 0
+        #10 index = 0
+
+        if coin2_list[0] + coin2_list[1] == 2:
+            for i in range(2):s
+                coin2_list.pop()
+            coin2_list.insert(0,2)
+
+
+        if coin2_list[0] + coin2_list[1] + coin2_list[3] == 5:
+
+
+
+        list_of_all_possible_changes.append(coin2_list.copy())
+
+    print(list_of_all_possible_changes)
+
+
+    #5 = 2, 2, 1
+    #10 = 5, 5
+    #20 = 10, 10
+    #50 = 20, 20, 10
+    #100 = 50, 50
+    #200 = 100, 100
+    #500 = 200, 200, 100
+
+    #10 =
+        5 + 2 + 2 + 1
+        2 + 2 + 1
+        5 + 2 + 1 + 1 + 1
+        2 + 1 + 1 + 1
+        5 + 1 + 1 + 1 + 1 + 1
+        1 + 1 + 1 + 1 + 1
+        1 + 1 + 1 + 1 + 1 + 1
+        1 + 1 + 1 + 1 + 1 + 1 + 1
+        1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
+        1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
+        1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
+
+
+print(changes(43, (1, 2, 5, 10, 20, 50, 100, 200, 500)))
+
 #Side by side
-import textwrap
-from itertools import zip_longest
+# import textwrap
+# from itertools import zip_longest
 
-left = (
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-"Sed non risus. "
-"Suspendisse lectus tortor, dignissim sit amet, "
-"adipiscing nec, utilisez sed sin dolor."
-)
+# left = (
+# "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+# "Sed non risus. "
+# "Suspendisse lectus tortor, dignissim sit amet, "
+# "adipiscing nec, utilisez sed sin dolor."
+# )
 
-right = (
-"Morbi venenatis, felis nec pretium euismod, "
-"est mauris finibus risus, consectetur laoreet "
-"sem enim sed arcu. Maecenas sit amet eleifend sem. "
-"Nullam ac libero metus. Praesent ac finibus nulla, vitae molestie dolor."
-" Aliquam vestibulum viverra nisl, id porta mi viverra hendrerit."
-" Ut et porta augue, et convallis ante."
-)
+# right = (
+# "Morbi venenatis, felis nec pretium euismod, "
+# "est mauris finibus risus, consectetur laoreet "
+# "sem enim sed arcu. Maecenas sit amet eleifend sem. "
+# "Nullam ac libero metus. Praesent ac finibus nulla, vitae molestie dolor."
+# " Aliquam vestibulum viverra nisl, id porta mi viverra hendrerit."
+# " Ut et porta augue, et convallis ante."
+# )
 
-def sidebyside(left, right, width=79):
+# def sidebyside(left, right, width=79):
     
-    if width % 2 == 0:
-        width = (width - 1) // 2
-    else:
-        width = width // 2
+#     if width % 2 == 0:
+#         width = (width - 1) // 2
+#     else:
+#         width = width // 2
 
-    txt_left = textwrap.wrap(left, width = width)
-    txt_right = textwrap.wrap(right, width = width)
+#     txt_left = textwrap.wrap(left, width = width)
+#     txt_right = textwrap.wrap(right, width = width)
 
-    for indx, el in enumerate(txt_right):
-        if len(el) < width:
-            txt_right[indx] = el + (" " * (width - len(el)))
-        txt_right[indx] = "|" + txt_right[indx]
+#     for indx, el in enumerate(txt_right):
+#         if len(el) < width:
+#             txt_right[indx] = el + (" " * (width - len(el)))
+#         txt_right[indx] = "|" + txt_right[indx]
 
-    for indx, el in enumerate(txt_left):
-        if len(el) < width:
-            txt_left[indx] = el + (" " * (width - len(el)))
+#     for indx, el in enumerate(txt_left):
+#         if len(el) < width:
+#             txt_left[indx] = el + (" " * (width - len(el)))
 
-    zip_fill_right = "|" + " " * (width - 1)
-    zip_fill_left = " " * width
+#     zip_fill_right = "|" + " " * (width - 1)
+#     zip_fill_left = " " * width
 
-    if len(txt_left) > len(txt_right):
-        final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill_right))
-    else:
-        final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill_left))
-    final_str = ""
+#     if len(txt_left) > len(txt_right):
+#         final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill_right))
+#     else:
+#         final_list = list(zip_longest(txt_left, txt_right, fillvalue=zip_fill_left))
+#     final_str = ""
 
-    for indx, el in enumerate(final_list):
-        if indx == len(final_list) - 1:
-            final_str = final_str + "".join(el)
-        else:
-            final_str = final_str + "".join(el) + "\n"
-    return final_str
+#     for indx, el in enumerate(final_list):
+#         if indx == len(final_list) - 1:
+#             final_str = final_str + "".join(el)
+#         else:
+#             final_str = final_str + "".join(el) + "\n"
+#     return final_str
     
 # print(sidebyside(left, right, 50))
-print(sidebyside('42', 'Hello world!', width=10))
+# print(sidebyside('42', 'Hello world!', width=10))
+
 #Password Generator
 # import string
 # import random
